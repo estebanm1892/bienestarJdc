@@ -1,0 +1,80 @@
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+main {
+	flex: 1 0 auto;
+}
+
+.logo-est {
+    width: 7em;
+	display: table;
+	margin-left: 50px;
+    vertical-align: middle;
+}
+
+.font-login {
+	font-size: large;
+}
+
+.navbar-button {
+	padding-right: 50px;
+}
+
+.tittle-home {
+	padding-top: 12% !important;
+	color: #0277bd;
+}
+
+.tittle-card-login {
+	font-weight: bold;
+}
+
+.panel-login {
+	margin-top: 3.5rem;
+}
+
+.profile_img_view{
+	height: 65px;
+	width: 65px;
+	object-fit: cover;
+  	object-position: center;
+}
+
+.profile-picture-cms{
+    margin-right: 25px;
+    border-radius: 100px;
+}
+
+.links-est{
+	color: #3B79CB;
+	/*text-decoration: underline;;*/
+}
+
+i.icon-blue {
+    color: #3B79CB;
+}
+
+.add-button{
+	background-color: #3EBF20;
+}
+
+.active-est{
+    background: #2e8d58 !important;
+    color: #fff !important;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+}
+
+.active-est i{
+        color: #fff !important;
+}
+
+.actions-button{
+	background-color: #2e8d58;
+}
+
+.status_button{
+	border-radius: 20px;
+}
