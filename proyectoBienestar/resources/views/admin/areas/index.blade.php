@@ -42,6 +42,6 @@
 		</div>
 	</div>
 	{{-- ESTO ESTA COMENTADO YA QUE AL MOMENTO DE CREAR LAS ÁREAS, EL MIDDLEWARE TOMARÁ EL USUARIO CON EL ÁREA RELACIONADA PARA PODER REDIRECCIONARLO, SI SE CREA OTRA ÁREA, SE TENDRÍA QUE MODIFICAR NUEVAMENTE EL MIDDLEWARE --}}
-	{{-- <a href="{{ route('areas.create') }}" class="btn-floating btn-large waves-effect waves-light right add-button"><i class="material-icons">add</i></a --}}>
+	{{-- <a href="{{ route('areas.create') }}" class="btn-floating btn-large waves-effect waves-light right add-button"><i class="material-icons">add</i></a> --}}
 </div>
 @endsection()
