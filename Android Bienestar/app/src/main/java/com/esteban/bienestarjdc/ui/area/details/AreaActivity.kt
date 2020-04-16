@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.view.get
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,75 +29,51 @@ import retrofit2.Response
 class AreaActivity : AppCompatActivity() {
 
     private lateinit var viewModel: AreaViewModel
-    private lateinit var compositeDisposable: CompositeDisposable
-    lateinit var recyclerView: RecyclerView
-    private lateinit var publicationRecyclerView: PublicationsRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_area)
 
-        val bundle: Bundle? = intent.extras
+        /*
+        inicializar
+         */
 
-        if(bundle?.containsKey(PUB_ITEM_ID)!!){
-            val id: Int = intent.getIntExtra(PUB_ITEM_ID, 0)
-            loadDetails(id)
-        }
-
-    }
-
-    private fun loadDetails(id:Int){
-        val apiService = MyApi()
+        val apiService = MyApi.RetrofitObject()
         val areaRepository = AreaRepository(apiService)
         val factory = AreaViewModelFactory(areaRepository)
         viewModel = ViewModelProviders.of(this, factory).get(AreaViewModel::class.java)
 
-        val requestCall: Call<List<Area>> = apiService.getArea(id)
+        area_publications.setHasFixedSize(true)
+        area_publications.layoutManager = LinearLayoutManager(this)
 
-        requestCall.enqueue(object : Callback<List<Area>>{
-            override fun onFailure(call: Call<List<Area>>, t: Throwable) {
-                Toast.makeText(
-                    this@AreaActivity,
-                    "Algo fallo al traer la información." + t.toString(),
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
-            override fun onResponse(call: Call<List<Area>>, response: Response<List<Area>>) {
-                if (response.isSuccessful){
-                    val area = response.body()
-                    area?.let {
-                        name.setText(area.get(0).name)
-                        /*
-                        if (area.get(0).publications.get(0).tittle === null || area.size == 0){
-                            println("no hay noticias")
-                        }else{
-                            println(area.get(0).publications.get(0).tittle)
-                        }
-                         */
-
-                        val areaImageURL = IMAGE_URL + area.get(0).area_image
-                        Glide.with(this@AreaActivity)
-                            .load(areaImageURL)
-                            .into(area_image)
-                        /*
-                        recyclerView = findViewById(R.id.publications_recylerview)
-                        publicationRecyclerView = PublicationsRecyclerAdapter(this@AreaActivity, area.get(0).publications)
-                        recyclerView.layoutManager = LinearLayoutManager(this@AreaActivity)
-                        recyclerView.adapter = publicationRecyclerView
-                         */
+        viewModel.area.observe(this, Observer { area ->
+            name.setText(area.name)
 
 
-                    }
-                }else {
-                    Toast.makeText(this@AreaActivity, "Algo fallo al traer la información.", Toast.LENGTH_SHORT)
-                        .show()
+
+            if (!area.publications.isNullOrEmpty()) {
+                this?.let {
+                    val adapter = PublicationsRecyclerAdapter(this, area.publications)
+                    area_publications.adapter = adapter
                 }
+            }else{
+                println("no hay noticias por acá")
             }
+
+            val areaImageURL = IMAGE_URL + area.area_image
+            Glide.with(this)
+                .load(areaImageURL)
+                .into(area_image)
+
         })
+
+        intent.extras?.let {
+            if(it.containsKey(PUB_ITEM_ID)){
+                val id: Int = intent.getIntExtra(PUB_ITEM_ID, 0)
+                viewModel.getArea(id)
+            }
+        }
     }
-
-
     companion object {
         const val PUB_ITEM_ID = "id"
     }

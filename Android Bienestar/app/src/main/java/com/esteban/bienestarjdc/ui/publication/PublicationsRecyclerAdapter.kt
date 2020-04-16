@@ -33,7 +33,7 @@ class PublicationsRecyclerAdapter(private val context: Context, private val publ
 
             itemView.tittle.text = publication?.tittle
             itemView.created_at.text = sdfOut.format(date)
-            itemView.area.text = "Area: " + publication?.area.name
+            itemView.area.text = "Area: " + publication?.area?.name
 
             val publicationImageURL = publication?.image
             Glide.with(context)

@@ -8,5 +8,5 @@ data class Activity(
     val initial_hour: String,
     val final_hour: String,
     val days: List<Day>,
-    val virutal_resource: List<VirtualResource>
+    val virutal_resource: List<VirtualResource>?
 )

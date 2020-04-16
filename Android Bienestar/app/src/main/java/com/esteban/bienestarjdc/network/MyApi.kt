@@ -26,7 +26,7 @@ interface MyApi {
     val getAreas: Call<List<Area>>
 
     @GET("area/{id}")
-    fun getArea(@Path("id") id: Int): Call<List<Area>>
+    fun getArea(@Path("id") id: Int): Call<Area>
 
     /*
     Publications Routes
@@ -35,7 +35,7 @@ interface MyApi {
     val  getPublications: Call<List<Publication>>
 
     @GET("publication/{id}")
-    fun getPublication(@Path("id") id: Int): Call<List<Publication>>
+    fun getPublication(@Path("id") id: Int): Call<Publication>
 
 
     /*

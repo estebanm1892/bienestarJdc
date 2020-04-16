@@ -19,6 +19,10 @@ class AreaViewModel (private val areaRepository: AreaRepository) : ViewModel() {
     val areas: LiveData<List<Area>>
         get() = areasMLD
 
+    private val areaMLD = MutableLiveData<Area>()
+    val area: LiveData<Area>
+        get() = areaMLD
+
     fun getAreas(){
         GlobalScope.launch(IO) {
             when (val response = areaRepository.getAreas()) {
@@ -31,5 +35,20 @@ class AreaViewModel (private val areaRepository: AreaRepository) : ViewModel() {
             }
         }
     }
+
+    fun getArea(id:Int){
+        GlobalScope.launch(IO) {
+            when (val response = areaRepository.getArea(id)){
+                is ApiSuccess -> {
+                    GlobalScope.launch(Main) {
+                        areaMLD.value = response.value
+                    }
+                }
+                is ApiException -> Log.d("ERROR", response.message)
+            }
+        }
+    }
+
+
 
 }
