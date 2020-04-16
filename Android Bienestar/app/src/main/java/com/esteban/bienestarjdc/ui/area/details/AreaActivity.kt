@@ -57,7 +57,7 @@ class AreaActivity : AppCompatActivity() {
                     area_publications.adapter = adapter
                 }
             }else{
-                println("no hay noticias por acá")
+                println("no hay noticias por acá.")
             }
 
             val areaImageURL = IMAGE_URL + area.area_image
