@@ -67,11 +67,14 @@ class AreaActivity : AppCompatActivity() {
                     val area = response.body()
                     area?.let {
                         name.setText(area.get(0).name)
+                        /*
                         if (area.get(0).publications.get(0).tittle === null || area.size == 0){
                             println("no hay noticias")
                         }else{
                             println(area.get(0).publications.get(0).tittle)
                         }
+                         */
+
                         val areaImageURL = IMAGE_URL + area.get(0).area_image
                         Glide.with(this@AreaActivity)
                             .load(areaImageURL)

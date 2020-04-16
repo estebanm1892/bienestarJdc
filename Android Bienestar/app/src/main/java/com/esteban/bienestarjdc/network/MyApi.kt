@@ -23,7 +23,7 @@ interface MyApi {
      */
 
     @get:GET("areas")
-    val getAreas: Observable<List<Area>>
+    val getAreas: Call<List<Area>>
 
     @GET("area/{id}")
     fun getArea(@Path("id") id: Int): Call<List<Area>>
@@ -32,7 +32,7 @@ interface MyApi {
     Publications Routes
      */
     @get:GET("publications")
-    val  getPublications: Observable<List<Publication>>
+    val  getPublications: Call<List<Publication>>
 
     @GET("publication/{id}")
     fun getPublication(@Path("id") id: Int): Call<List<Publication>>
@@ -42,7 +42,7 @@ interface MyApi {
     Normatives Routes
      */
     @get:GET("normatives")
-    val  getNormatives: Observable<List<Normative>>
+    val  getNormatives: Call<List<Normative>>
 
     companion object RetrofitObject {
         operator fun invoke(): MyApi {
