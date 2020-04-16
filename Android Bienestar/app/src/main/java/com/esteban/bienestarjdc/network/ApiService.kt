@@ -1,17 +1,27 @@
 package com.esteban.bienestarjdc.network
 
 import retrofit2.Response
-import java.io.IOException
 
-abstract class ApiService {
-    suspend fun <T: Any> ApiRequest(call: suspend() -> Response<T>): T {
-        val response = call.invoke()
-        if (response.isSuccessful) {
-            return  response.body()!!
-        } else {
-            throw ApiException(response.code().toString())
+sealed class ApiService<T> {
+    companion object {
+
+        fun <T> create(t: Throwable): ApiService<T> {
+            return ApiException(message = "${t.message}")
+        }
+
+        fun <T> create (response: Response<T>): ApiService<T> {
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    return ApiSuccess(value = it)
+                }
+                return ApiException(message = "No body")
+            } else {
+                return ApiException(message = "Error")
+            }
         }
     }
 }
 
-class ApiException(message: String) : IOException(message)
+class ApiSuccess<T>(val value: T): ApiService<T>()
+
+class ApiException<T>(val message: String) : ApiService<T>()

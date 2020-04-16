@@ -1,12 +1,29 @@
 package com.esteban.bienestarjdc.repository
 
 import com.esteban.bienestarjdc.data.Area
+import com.esteban.bienestarjdc.network.ApiService
 import com.esteban.bienestarjdc.network.MyApi
-import io.reactivex.Observable
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 
-class AreaRepository(private val apiService: MyApi) {
-    fun getAreas(): Observable<List<Area>> {
-        return apiService.getAreas
+class AreaRepository(private val service: MyApi) {
+
+    suspend fun getAreas(): ApiService<List<Area>> {
+        return suspendCoroutine { continuation ->
+            service.getAreas.enqueue(object : Callback<List<Area>>{
+                override fun onFailure(call: Call<List<Area>>, t: Throwable) {
+                    continuation.resume(ApiService.create(t))
+                }
+
+                override fun onResponse(call: Call<List<Area>>, response: Response<List<Area>>) {
+                    continuation.resume(ApiService.create(response))
+                }
+            })
+        }
     }
+
 }

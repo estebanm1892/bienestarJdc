@@ -18,13 +18,13 @@ import com.esteban.bienestarjdc.ui.area.details.AreaActivity
 import kotlinx.android.synthetic.main.areas_list_item.view.*
 
 
-class AreasRecyclerAdapter(private val context: Context, private val areas: List<Area>) : RecyclerView.Adapter<AreasRecyclerAdapter.AreaViewHolder>() {
+class AreasRecyclerAdapter(private val context: Context,
+                           private val areas: List<Area>) : RecyclerView.Adapter<AreasRecyclerAdapter.AreaViewHolder>() {
 
      class AreaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
          fun bind(area: Area?, context: Context) {
              itemView.name.text = area?.name
-
              val areaImageURL = area?.area_image
              Glide.with(context)
                  .load(IMAGE_URL + areaImageURL)
@@ -51,9 +51,8 @@ class AreasRecyclerAdapter(private val context: Context, private val areas: List
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): AreasRecyclerAdapter.AreaViewHolder {
-        val v = LayoutInflater.from(parent.context)
-            .inflate(R.layout.areas_list_item, parent, false)
+    ): AreaViewHolder {
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.areas_list_item, parent, false)
         return AreaViewHolder(v)
     }
 
@@ -61,7 +60,7 @@ class AreasRecyclerAdapter(private val context: Context, private val areas: List
         return areas.size
     }
 
-    override fun onBindViewHolder(holder: AreasRecyclerAdapter.AreaViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AreaViewHolder, position: Int) {
         return holder.bind(areas[position], context)
 
     }
