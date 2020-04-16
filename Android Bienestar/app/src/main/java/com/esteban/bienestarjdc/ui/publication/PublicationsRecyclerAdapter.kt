@@ -60,9 +60,6 @@ class PublicationsRecyclerAdapter(private val context: Context, private val publ
             }
              */
 
-
-
-
         }
 
     }
