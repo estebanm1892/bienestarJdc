@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/areas"
+        android:title="Areas"
+        android:icon="@drawable/ic_action_areas"
+        />
+
+    <item
+        android:id="@+id/publications"
+        android:title="Publicaciones"
+        android:icon="@drawable/ic_action_publications"
+        />
+
+    <item
+        android:id="@+id/normatives"
+        android:title="Normativa"
+        android:icon="@drawable/ic_action_normatives"
+        />
+
+
+</menu>
