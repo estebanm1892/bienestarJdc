@@ -6,6 +6,8 @@ import android.text.Html
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.esteban.bienestarjdc.R
 import com.esteban.bienestarjdc.network.IMAGE_URL
 import com.esteban.bienestarjdc.network.MyApi
@@ -45,6 +47,12 @@ class PublicationActivity : AppCompatActivity() {
             val publicationImageURL = IMAGE_URL + publication.image
             Glide.with(this)
                 .load(publicationImageURL)
+                .centerInside()
+                .thumbnail(0.5f)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .centerCrop()
                 .into(image)
 
         })
