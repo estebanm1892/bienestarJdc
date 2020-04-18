@@ -41,4 +41,18 @@ class AreaRepository(private val service: MyApi) {
         }
     }
 
+    suspend fun getAreaInformation(id: Int): ApiService<Area> {
+        return suspendCoroutine { continuation ->
+            service.getAreaInformation(id).enqueue(object : Callback<Area>{
+                override fun onFailure(call: Call<Area>, t: Throwable) {
+                    continuation.resume(ApiService.create(t))
+                }
+
+                override fun onResponse(call: Call<Area>, response: Response<Area>) {
+                    continuation.resume(ApiService.Companion.create(response))
+                }
+            })
+        }
+    }
+
 }

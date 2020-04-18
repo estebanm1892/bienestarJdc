@@ -9,5 +9,5 @@ data class Area(
     val objetive: String,
     val programs: String,
     val publications: List<Publication>?,
-    val users: List<User>
+    val users: List<User>?
 )

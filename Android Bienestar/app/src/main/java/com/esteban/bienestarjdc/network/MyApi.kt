@@ -28,6 +28,9 @@ interface MyApi {
     @GET("area/{id}")
     fun getArea(@Path("id") id: Int): Call<Area>
 
+    @GET("area_information/{id}")
+    fun getAreaInformation(@Path("id") id: Int): Call<Area>
+
     /*
     Publications Routes
      */

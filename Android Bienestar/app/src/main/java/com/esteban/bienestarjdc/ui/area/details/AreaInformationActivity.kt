@@ -1,10 +1,8 @@
 package com.esteban.bienestarjdc.ui.area.details
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageButton
-import android.widget.Toast
+import android.text.Html
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,41 +16,31 @@ import com.esteban.bienestarjdc.repository.AreaRepository
 import com.esteban.bienestarjdc.ui.area.AreaViewModel
 import com.esteban.bienestarjdc.ui.area.AreaViewModelFactory
 import kotlinx.android.synthetic.main.activity_area.*
+import kotlinx.android.synthetic.main.activity_area_information.*
+import kotlinx.android.synthetic.main.activity_area_information.area_image
+import kotlinx.android.synthetic.main.activity_area_information.name
 
-class AreaActivity : AppCompatActivity() {
+class AreaInformationActivity : AppCompatActivity() {
 
     private lateinit var viewModel: AreaViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_area)
-
-        /*
-        inicializar
-         */
-
-        val btninfo: ImageButton = this.findViewById(R.id.area_info) as ImageButton
-        val btnactivities: ImageButton = this.findViewById(R.id.area_activities) as ImageButton
+        setContentView(R.layout.activity_area_information)
 
         val apiService = MyApi.RetrofitObject()
         val areaRepository = AreaRepository(apiService)
         val factory = AreaViewModelFactory(areaRepository)
         viewModel = ViewModelProviders.of(this, factory).get(AreaViewModel::class.java)
 
-        area_publications.setHasFixedSize(true)
-        area_publications.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        area_users.setHasFixedSize(true)
+        area_users.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         viewModel.area.observe(this, Observer { area ->
             name.setText(area.name)
-
-            if (!area.publications.isNullOrEmpty()) {
-                this?.let {
-                    val adapter = AreaPublicationsRecyclerAdapter(this, area.publications)
-                    area_publications.adapter = adapter
-                }
-            }else{
-                println("no hay noticias por acá.")
-            }
+            area_presentation.setText(Html.fromHtml(area.area_presentation))
+            objetive.setText(Html.fromHtml(area.objetive))
+            programs.setText(Html.fromHtml(area.programs))
 
             val areaImageURL = IMAGE_URL + area.area_image
             Glide.with(this)
@@ -65,24 +53,24 @@ class AreaActivity : AppCompatActivity() {
                 .centerCrop()
                 .into(area_image)
 
-            btninfo.setOnClickListener {
-                val intent = Intent(this, AreaInformationActivity::class.java)
-                intent.putExtra("id", area.id)
-                startActivity(intent)
+            if (!area.users.isNullOrEmpty()){
+                this?.let {
+                    val adapter = AreaUsersRecyclerAdapter(this, area.users)
+                    area_users.adapter = adapter
+                }
             }
 
-            btnactivities.setOnClickListener {
-                Toast.makeText(this, "area con actividad: " +area?.id, Toast.LENGTH_LONG).show()
-            }
         })
 
         intent.extras?.let {
-            if(it.containsKey(PUB_ITEM_ID)){
+            if (it.containsKey(PUB_ITEM_ID)){
                 val id: Int = intent.getIntExtra(PUB_ITEM_ID, 0)
-                viewModel.getArea(id)
+                viewModel.getAreaInformation(id)
             }
         }
+
     }
+
     companion object {
         const val PUB_ITEM_ID = "id"
     }

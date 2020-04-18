@@ -49,6 +49,19 @@ class AreaViewModel (private val areaRepository: AreaRepository) : ViewModel() {
         }
     }
 
+    fun getAreaInformation(id: Int){
+        GlobalScope.launch(IO) {
+            when (val response = areaRepository.getAreaInformation(id)){
+                is ApiSuccess -> {
+                    GlobalScope.launch(Main) {
+                        areaMLD.value = response.value
+                    }
+                }
+                is ApiException -> Log.d("ERROR", response.message)
+            }
+        }
+    }
+
 
 
 }
