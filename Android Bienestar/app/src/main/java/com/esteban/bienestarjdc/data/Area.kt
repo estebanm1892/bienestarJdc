@@ -1,7 +1,7 @@
 package com.esteban.bienestarjdc.data
 
 data class Area(
-    val activities: List<Activity>?,
+    val areaActivities: List<AreaActivity>?,
     val area_image: String,
     val area_presentation: String,
     val id: Int,

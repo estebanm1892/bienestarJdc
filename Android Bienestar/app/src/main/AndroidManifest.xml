@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.area.details.AreaInformationActivity"></activity>
+        <activity android:name=".ui.activity.AreaActivitiesActivity"></activity>
+        <activity android:name=".ui.area.details.AreaInformationActivity" />
         <activity android:name=".ui.area.details.AreaActivity" />
         <activity android:name=".ui.publication.details.PublicationActivity" />
         <activity android:name=".MainActivity">

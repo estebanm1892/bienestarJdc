@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
-                android:src="@drawable/grupo1"/>
+                android:src="@drawable/grupo_1"/>
 
             <ImageButton
                 android:id="@+id/area_activities"

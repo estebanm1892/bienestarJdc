@@ -15,6 +15,7 @@ import com.esteban.bienestarjdc.R
 import com.esteban.bienestarjdc.network.IMAGE_URL
 import com.esteban.bienestarjdc.network.MyApi
 import com.esteban.bienestarjdc.repository.AreaRepository
+import com.esteban.bienestarjdc.ui.activity.AreaActivitiesActivity
 import com.esteban.bienestarjdc.ui.area.AreaViewModel
 import com.esteban.bienestarjdc.ui.area.AreaViewModelFactory
 import kotlinx.android.synthetic.main.activity_area.*
@@ -72,8 +73,11 @@ class AreaActivity : AppCompatActivity() {
             }
 
             btnactivities.setOnClickListener {
-                Toast.makeText(this, "area con actividad: " +area?.id, Toast.LENGTH_LONG).show()
+                val intent = Intent(this, AreaActivitiesActivity::class.java)
+                intent.putExtra("id", area.id)
+                startActivity(intent)
             }
+
         })
 
         intent.extras?.let {

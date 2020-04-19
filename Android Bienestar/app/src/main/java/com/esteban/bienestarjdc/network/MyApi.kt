@@ -1,13 +1,12 @@
 package com.esteban.bienestarjdc.network
 
+import com.esteban.bienestarjdc.data.AreaActivity
 import com.esteban.bienestarjdc.data.Area
 import com.esteban.bienestarjdc.data.Normative
 import com.esteban.bienestarjdc.data.Publication
-import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -30,6 +29,14 @@ interface MyApi {
 
     @GET("area_information/{id}")
     fun getAreaInformation(@Path("id") id: Int): Call<Area>
+
+    /*
+    Activities Routes
+     */
+
+    @GET("area_activities/{id}")
+    fun getActivities(@Path("id")id: Int): Call<List<AreaActivity>>
+
 
     /*
     Publications Routes
