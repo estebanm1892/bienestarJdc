@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/greyColor"
-    tools:context=".ui.activity.AreaActivitiesActivity">
+    tools:context=".ui.vresources.VirtualResourcesActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/name"
-            android:text="Actividades"
+            android:text="Recursos Virtuales"
             android:textStyle="bold"
             android:textSize="24sp"
             android:layout_margin="10dp"
@@ -23,14 +23,14 @@
             android:layout_height="wrap_content"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/activities_recyclerview"
+            android:id="@+id/virtual_resources_recyclerview"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 
         <TextView
-            android:id="@+id/no_activities"
-            android:text="No hay actividades registradas"
+            android:id="@+id/no_virtual_resources"
+            android:text="No hay recursos virtuales registrados"
             android:textStyle="bold"
             android:textSize="24sp"
             android:layout_marginTop="200dp"
@@ -40,8 +40,5 @@
             android:visibility="invisible"/>
 
     </LinearLayout>
-
-
-
 
 </RelativeLayout>

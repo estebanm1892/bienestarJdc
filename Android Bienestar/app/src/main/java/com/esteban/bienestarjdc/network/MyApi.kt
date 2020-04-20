@@ -1,9 +1,6 @@
 package com.esteban.bienestarjdc.network
 
-import com.esteban.bienestarjdc.data.AreaActivity
-import com.esteban.bienestarjdc.data.Area
-import com.esteban.bienestarjdc.data.Normative
-import com.esteban.bienestarjdc.data.Publication
+import com.esteban.bienestarjdc.data.*
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -37,6 +34,11 @@ interface MyApi {
     @GET("area_activities/{id}")
     fun getActivities(@Path("id")id: Int): Call<List<AreaActivity>>
 
+    @GET("activity_vresources/{id}")
+    fun getVirtualResources(@Path("id")id: Int): Call<List<VirtualResource>>
+
+    @GET("vresource/{id}")
+    fun getVirtualResource(@Path("id")id: Int): Call<VirtualResource>
 
     /*
     Publications Routes
