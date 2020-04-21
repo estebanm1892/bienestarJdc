@@ -1,6 +1,7 @@
 package com.esteban.bienestarjdc.ui.vresources
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.esteban.bienestarjdc.R
 import com.esteban.bienestarjdc.data.VirtualResource
+import com.esteban.bienestarjdc.ui.vresources.details.VirtualResourceActivity
 import kotlinx.android.synthetic.main.virtual_resources_list_item.view.*
 
 class VirtualResourcesRecyclerAdapter(private val context: Context, private val virtualResources: List<VirtualResource>): RecyclerView.Adapter<VirtualResourcesRecyclerAdapter.VirtualResourceViewHolder>(){
@@ -19,12 +21,14 @@ class VirtualResourcesRecyclerAdapter(private val context: Context, private val 
             itemView.description.text = virtualResource?.description
 
             itemView.setOnClickListener {
-                /*
-                val intent = Intent(context, AreaActivity::class.java)
-                intent.putExtra("id", area?.id)
+
+                val intent = Intent(context, VirtualResourceActivity::class.java)
+                intent.putExtra("id", virtualResource?.id)
                 context.startActivity(intent)
-                 */
+
+                /*
                 Toast.makeText(context, "recurso virtual:  " +virtualResource?.id, Toast.LENGTH_LONG).show()
+                 */
 
 
             }
