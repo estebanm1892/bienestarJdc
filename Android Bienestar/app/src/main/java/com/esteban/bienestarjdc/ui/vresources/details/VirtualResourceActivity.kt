@@ -4,7 +4,10 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.ScaleGestureDetector
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -25,12 +28,13 @@ class VirtualResourceActivity : AppCompatActivity() {
     private var emptyVideo: TextView? = null
     private var emptyDoc: TextView? = null
     private var emptyImage: TextView? = null
-    private var resourceDoc: TextView? = null
-    private var resourceImage: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_virtual_resource)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Recursos Virtuales"
 
         val apiService = MyApi.RetrofitObject()
         val virtualResourceRepository = VirtualResourceRepository(apiService)
@@ -48,7 +52,7 @@ class VirtualResourceActivity : AppCompatActivity() {
                 webview_player_view.settings.javaScriptEnabled = true
                 webview_player_view.loadUrl(virtualResource.embed_video)
             }else{
-                webview_player_view!!.setVisibility(View.INVISIBLE)
+                webview_player_view!!.setVisibility(View.GONE)
                 emptyVideo!!.setVisibility(View.VISIBLE)
             }
             if (!virtualResource.docs.isNullOrEmpty()){
@@ -59,7 +63,7 @@ class VirtualResourceActivity : AppCompatActivity() {
                     startActivity(browserIntent)
                 }
             }else{
-                docs!!.setVisibility(View.INVISIBLE)
+                docs!!.setVisibility(View.GONE)
                 emptyDoc!!.setVisibility(View.VISIBLE)
             }
             if (!virtualResource.image.isNullOrEmpty()){
@@ -74,7 +78,7 @@ class VirtualResourceActivity : AppCompatActivity() {
                     .centerCrop()
                     .into(image)
             }else{
-                image!!.setVisibility(View.INVISIBLE)
+                image!!.setVisibility(View.GONE)
                 emptyImage!!.setVisibility(View.VISIBLE)
             }
 
@@ -88,6 +92,12 @@ class VirtualResourceActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
     companion object {
         const val PUB_ITEM_ID = "id"
     }

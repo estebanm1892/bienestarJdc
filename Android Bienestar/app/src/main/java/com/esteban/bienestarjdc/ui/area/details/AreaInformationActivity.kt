@@ -15,10 +15,8 @@ import com.esteban.bienestarjdc.network.MyApi
 import com.esteban.bienestarjdc.repository.AreaRepository
 import com.esteban.bienestarjdc.ui.area.AreaViewModel
 import com.esteban.bienestarjdc.ui.area.AreaViewModelFactory
-import kotlinx.android.synthetic.main.activity_area.*
 import kotlinx.android.synthetic.main.activity_area_information.*
 import kotlinx.android.synthetic.main.activity_area_information.area_image
-import kotlinx.android.synthetic.main.activity_area_information.name
 
 class AreaInformationActivity : AppCompatActivity() {
 
@@ -27,6 +25,8 @@ class AreaInformationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_area_information)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val apiService = MyApi.RetrofitObject()
         val areaRepository = AreaRepository(apiService)
@@ -37,7 +37,7 @@ class AreaInformationActivity : AppCompatActivity() {
         area_users.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         viewModel.area.observe(this, Observer { area ->
-            name.setText(area.name)
+            supportActionBar?.title = area.name
             area_presentation.setText(Html.fromHtml(area.area_presentation))
             objetive.setText(Html.fromHtml(area.objetive))
             programs.setText(Html.fromHtml(area.programs))
@@ -69,6 +69,11 @@ class AreaInformationActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     companion object {

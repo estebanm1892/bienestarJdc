@@ -31,6 +31,9 @@ class AreaActivity : AppCompatActivity() {
         inicializar
          */
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
         val btninfo: ImageButton = this.findViewById(R.id.area_info) as ImageButton
         val btnactivities: ImageButton = this.findViewById(R.id.area_activities) as ImageButton
 
@@ -43,8 +46,7 @@ class AreaActivity : AppCompatActivity() {
         area_publications.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         viewModel.area.observe(this, Observer { area ->
-            name.setText(area.name)
-
+            supportActionBar?.title = area.name
             if (!area.publications.isNullOrEmpty()) {
                 this?.let {
                     val adapter = AreaPublicationsRecyclerAdapter(this, area.publications)
@@ -86,6 +88,12 @@ class AreaActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
     companion object {
         const val PUB_ITEM_ID = "id"
     }

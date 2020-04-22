@@ -26,6 +26,9 @@ class PublicationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_publication)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Noticias"
+
         val apiService = MyApi.RetrofitObject()
         val publicationRepository = PublicationRepository(apiService)
         val factory = PublicationViewModelFactory(publicationRepository)
@@ -66,12 +69,14 @@ class PublicationActivity : AppCompatActivity() {
 
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
     companion object {
         const val PUB_ITEM_ID = "id"
     }
-
-
-
 }
 
 

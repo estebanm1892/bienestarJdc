@@ -16,11 +16,13 @@ class VirtualResourcesActivity : AppCompatActivity() {
 
     private lateinit var viewModel: VirtualResourcesViewModel
     private var emptyData: TextView? = null
-    private var virtualResourcesTittle : TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_virtual_resources)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Recursos Virtuales"
 
         val apiService = MyApi.RetrofitObject()
         val virtualResourcesRepositoty = VirtualResourceRepository(apiService)
@@ -31,7 +33,6 @@ class VirtualResourcesActivity : AppCompatActivity() {
         virtual_resources_recyclerview.layoutManager = LinearLayoutManager(this)
 
         emptyData = findViewById(R.id.no_virtual_resources) as TextView
-        virtualResourcesTittle = findViewById(R.id.name) as TextView
 
         viewModel.virtualResources.observe(this, Observer { virtualResources ->
             if (!virtualResources.isNullOrEmpty()){
@@ -41,11 +42,9 @@ class VirtualResourcesActivity : AppCompatActivity() {
                 }
             }
             else{
-                virtualResourcesTittle!!.setVisibility(View.INVISIBLE)
                 emptyData!!.setVisibility(View.VISIBLE)
             }
         })
-
 
         intent.extras?.let {
             if (it.containsKey(PUB_ITEM_ID)){
@@ -54,6 +53,11 @@ class VirtualResourcesActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     companion object {

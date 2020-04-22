@@ -16,11 +16,14 @@ class AreaActivitiesActivity : AppCompatActivity() {
 
     private lateinit var viewModel: AreaActivityViewModel
     private var emptyData: TextView? = null
-    private var activitiesTittle : TextView? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_area_activities)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Actividades"
 
         val apiService = MyApi.RetrofitObject()
         val activitiesRepository = ActivityRepository(apiService)
@@ -31,7 +34,6 @@ class AreaActivitiesActivity : AppCompatActivity() {
         activities_recyclerview.layoutManager = LinearLayoutManager(this)
 
         emptyData = findViewById(R.id.no_activities) as TextView
-        activitiesTittle = findViewById(R.id.name) as TextView
 
         viewModel.areactivities.observe(this, Observer { activities ->
             if (!activities.isNullOrEmpty()){
@@ -40,7 +42,6 @@ class AreaActivitiesActivity : AppCompatActivity() {
                     activities_recyclerview.adapter = adapter
                 }
             }else{
-                activitiesTittle!!.setVisibility(View.INVISIBLE)
                 emptyData!!.setVisibility(View.VISIBLE)
             }
         })
@@ -53,6 +54,12 @@ class AreaActivitiesActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
     companion object {
         const val PUB_ITEM_ID = "id"
     }

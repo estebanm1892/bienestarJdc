@@ -9,7 +9,7 @@
 
     <item
         android:id="@+id/publications"
-        android:title="Publicaciones"
+        android:title="Noticias"
         android:icon="@drawable/ic_action_publications"
         />
 

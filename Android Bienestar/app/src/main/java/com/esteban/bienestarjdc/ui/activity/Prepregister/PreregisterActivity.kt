@@ -20,6 +20,9 @@ class PreregisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preregister)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Preinscripción"
+
         val context = this
 
         option = findViewById(R.id.semester)
@@ -90,6 +93,11 @@ class PreregisterActivity : AppCompatActivity() {
 
     private fun validateInfo(data: EditText):Boolean{
         return !data.text.isNullOrEmpty()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     companion object {
