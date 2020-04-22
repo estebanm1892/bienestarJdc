@@ -5,7 +5,9 @@ import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import java.util.concurrent.TimeUnit
 
@@ -33,6 +35,9 @@ interface MyApi {
 
     @GET("area_activities/{id}")
     fun getActivities(@Path("id")id: Int): Call<List<AreaActivity>>
+
+    @POST("activity/{id}/preregister")
+    fun addPreregister(@Body newPreregister: Prepregistrer, @Path("id")id: Int): Call<Prepregistrer>
 
     @GET("activity_vresources/{id}")
     fun getVirtualResources(@Path("id")id: Int): Call<List<VirtualResource>>

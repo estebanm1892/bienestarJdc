@@ -6,4 +6,5 @@
     <color name="whiteColor">#ffffff</color>
     <color name="greyColor">#e0e0e0</color>
     <color name="linescolor">#707070</color>
+    <color name="btn_blue">#3B79CB</color>
 </resources>

@@ -14,8 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.esteban.bienestarjdc.ui.vresources.details.VirtualResourceActivity"></activity>
-        <activity android:name="com.esteban.bienestarjdc.ui.vresources.VirtualResourcesActivity" />
+        <activity android:name=".ui.activity.Prepregister.PreregisterActivity"></activity>
+        <activity android:name=".ui.vresources.details.VirtualResourceActivity" />
+        <activity android:name=".ui.vresources.VirtualResourcesActivity" />
         <activity android:name=".ui.activity.AreaActivitiesActivity" />
         <activity android:name=".ui.area.details.AreaInformationActivity" />
         <activity android:name=".ui.area.details.AreaActivity" />
