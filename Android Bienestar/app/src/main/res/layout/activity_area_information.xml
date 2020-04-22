@@ -20,6 +20,7 @@
             <ImageView
                 android:id="@+id/area_image"
                 android:scaleType="fitXY"
+                android:src="@drawable/ic_launcher_foreground"
                 android:layout_centerHorizontal="true"
                 android:layout_width="match_parent"
                 android:layout_height="200dp">

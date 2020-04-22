@@ -44,7 +44,7 @@ class PublicationActivity : AppCompatActivity() {
 
             tittle.setText(publication.tittle)
             created_at.setText(sdfOut.format(date))
-            area.setText("Area: " + publication.area?.name)
+            area.setText("Área: " + publication.area?.name)
             content.setText(Html.fromHtml(publication.content))
 
             val publicationImageURL = IMAGE_URL + publication.image

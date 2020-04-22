@@ -61,7 +61,7 @@ class PreregisterActivity : AppCompatActivity() {
 
                                 requestCall.enqueue(object : Callback<Prepregistrer> {
                                     override fun onFailure(call: Call<Prepregistrer>, t: Throwable) {
-                                        Toast.makeText(context, "ERROR", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(context, "ERROR", Toast.LENGTH_LONG).show()
                                     }
 
                                     override fun onResponse(
@@ -70,10 +70,10 @@ class PreregisterActivity : AppCompatActivity() {
                                     ) {
                                         if (response.isSuccessful) {
                                             finish()
-                                            Toast.makeText(context, "Has realizado tu preiniscripción correctamente.", Toast.LENGTH_SHORT).show()
-                                            Toast.makeText(context, "Acércate a la Unidad de Bienestar Universitario para más información.", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(context, "Has realizado tu preiniscripción correctamente. " +
+                                                    "Acércate a la Unidad de Bienestar Universitario para más información.", Toast.LENGTH_LONG).show()
                                         } else {
-                                            Toast.makeText(context, "Error al ingresar la información.", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(context, "Error al ingresar la información.", Toast.LENGTH_LONG).show()
                                         }
                                     }
 

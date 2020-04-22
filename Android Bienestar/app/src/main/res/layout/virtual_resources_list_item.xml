@@ -10,7 +10,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         app:cardCornerRadius="4dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
@@ -21,9 +21,9 @@
 
             <TextView
                 android:id="@+id/tittle"
-                android:text="Lección 1: Acordes"
+                android:text="Recurso Virtual"
                 android:textStyle="bold"
-                android:textSize="14sp"
+                android:textSize="20sp"
                 android:layout_marginBottom="12dp"
                 android:layout_gravity="left"
                 android:layout_width="wrap_content"
@@ -38,9 +38,6 @@
                 android:layout_gravity="left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-
-
-
 
         </LinearLayout>
 

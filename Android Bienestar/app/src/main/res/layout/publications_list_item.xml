@@ -20,13 +20,14 @@
 
             <ImageView
                 android:id="@+id/image"
+                android:src="@drawable/ic_launcher_foreground"
                 android:scaleType="fitXY"
                 android:layout_width="350dp"
                 android:layout_height="200dp"/>
 
             <TextView
                 android:id="@+id/tittle"
-                android:text="Noticia 1"
+                android:text="Noticia"
                 android:textStyle="bold"
                 android:textSize="24sp"
                 android:layout_gravity="left"
@@ -36,7 +37,7 @@
 
             <TextView
                 android:id="@+id/created_at"
-                android:text="2020-03-31"
+                android:text="2020-01-01"
                 android:textStyle="normal"
                 android:textSize="14sp"
                 android:layout_gravity="left"
@@ -44,7 +45,7 @@
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/area"
-                android:text="Arte y Cultura"
+                android:text="Área: "
                 android:textStyle="normal"
                 android:textSize="14sp"
                 android:layout_gravity="left"
