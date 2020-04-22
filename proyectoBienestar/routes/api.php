@@ -18,14 +18,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('areas', 'AreaController@index_mobile');
-Route::get('area/{id}', 'AreaController@show_mobile');
-Route::get('area_information/{id}', 'AreaController@show_mobile_information');
+Route::get('area/{id}', 'AreaController@show_mobile_information');
+Route::get('area_information/{id}', 'AreaController@show_mobile');
 
-Route::get('activity/{id}', 'ActivityController@show_mobile');
-Route::get('activity/{id}', 'ActivityController@show_mobile');
+Route::get('area_activities/{id}', 'ActivityController@show_activities_mobile');
+Route::post('activity/{id}/preregister', 'PreregistrationController@store');
+
+Route::get('activity_vresources/{id}', 'VirtualResourceController@show_virtual_resources_mobile');
 Route::get('vresource/{id}', 'VirtualResourceController@show_mobile');
 
-Route::post('activity/{id}/preregister', 'PreregistrationController@store');
 
 Route::get('publications', 'PublicationController@index_mobile');
 Route::get('publication/{id}', 'PublicationController@show_mobile');

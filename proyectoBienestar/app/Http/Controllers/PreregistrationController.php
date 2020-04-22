@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Activity;
 use App\Preregistration;
-use App\AcademicProgram;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -42,8 +41,7 @@ class PreregistrationController extends Controller
      */
     public function store(Request $request, $id)
     {   
-        $programs = AcademicProgram::orderBy('name', 'ASC')->get();
-        
+                
         try {
             $activity = Activity::findOrfail($id);
         } catch (ModelNotFoundException $e) {
@@ -58,7 +56,7 @@ class PreregistrationController extends Controller
             'name'                  =>  'required|min:3',
             'email'                 =>  'required|email',
             'semester'              =>  'required',
-            'academic_program_id'   =>  'required'
+            'academic_program'      =>  'required'
         ];
 
         $credentials = $request->only(
@@ -66,7 +64,7 @@ class PreregistrationController extends Controller
             'name',
             'email',
             'semester',            
-            'academic_program_id',
+            'academic_program',
         );
 
         $validator = Validator::make($credentials, $rules);
@@ -85,11 +83,7 @@ class PreregistrationController extends Controller
         $preregister->activity_id = $activity->id;
         $preregister->save();
 
-        return response()->json([
-            'preregister'   =>  $preregister,
-            'programs'      =>  $programs,
-            'success'       =>  true,
-        ]);
+        return response()->json($preregister, 201)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }
 
     /**

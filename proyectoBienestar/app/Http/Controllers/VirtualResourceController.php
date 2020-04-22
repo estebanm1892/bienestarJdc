@@ -107,6 +107,32 @@ class VirtualResourceController extends Controller
         //
     }
 
+    public function show_virtual_resources_mobile($id)
+    {
+        try {
+            $activity = Activity::findOrfail($id);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'error'     =>  'No existe una actividad con Id: '.$id,
+                'success'   =>  false,
+            ], 404);
+        }
+
+        $virtual_resources = VirtualResource::where('activity_id', $activity->id);
+
+        $activity = $virtual_resources->orderby('id', 'ASC')
+            ->select([
+                'id',
+                'tittle',
+                'description',
+                'activity_id'
+            ])
+            ->get();
+
+        return response()->json($activity, 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+
+    }
+
     public function show_mobile($id)
     {
         try {
@@ -128,12 +154,14 @@ class VirtualResourceController extends Controller
                 'image',
                 'activity_id'
             ])
-            ->get();
+            ->first();
 
-        return response()->json([
-            'vresource'     =>  $vresource,
-            'success'   =>  true,
-        ]);
+        return response()->json($vresource, 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+
+        // return response()->json([
+        //     'vresource'     =>  $vresource,
+        //     'success'   =>  true,
+        // ]);
     }
 
     /**

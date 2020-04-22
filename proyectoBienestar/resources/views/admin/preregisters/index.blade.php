@@ -22,7 +22,7 @@
 							<td>{{ $preregister->name }}</td>
 							<td>{{ $preregister->email }}</td>
 							<td>{{ $preregister->semester }}</td>
-							<td>{{ $preregister->academic_program->name }}</td>
+							<td>{{ $preregister->academic_program }}</td>
 						</tr>
 					</tbody>
 				@endforeach

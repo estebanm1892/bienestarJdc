@@ -110,30 +110,25 @@ class ActivityController extends Controller
         //
     }
 
-    public function show_mobile($id)
+    public function show_activities_mobile($id)
     {
         try {
-            $activity = Activity::findOrfail($id);
+            $area = Area::findOrfail($id);
         } catch (ModelNotFoundException $e) {
             return response()->json([
-                'error'     =>  'No existe una actividad con Id: '.$id,
+                'error'     =>  'No existe un area para el area con Id: '.$id,
                 'success'   =>  false,
             ], 404);
-        }
+        }     
 
-        $activity = $activity->where('id', $id)
-            ->with(['days' => function($days){
+        $activities = Activity::where('area_id', $area->id);
+
+        $area = $activities->orderby('id', 'DESC')
+        ->with(['days' => function($days){
                 $days->select([
                     'name'
                 ]);
             }])
-            ->with(['virtual_resources' => function($virtual_resources){
-                $virtual_resources->select([
-                    'id',
-                    'tittle',
-                    'activity_id'
-                ]);
-            }])            
             ->select([
                 'id',
                 'name',
@@ -143,20 +138,20 @@ class ActivityController extends Controller
                 'area_id'
             ])
             ->get();
-
-        return response()->json([
-            'activity'     =>  $activity,
-            'success'   =>  true,
-        ]);
+             
+        return response()->json($area, 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 
     }
+
+
+    
 
     public function show_preregister($id)
     {
         $activity       =   Activity::findOrFail($id);
         $preregisters   =   Preregistration::where('activity_id', $activity->id)->orderBy('id', 'DESC')->paginate(10);        
 
-        Preregistration::where('readed', false)->update(['readed' => true]);
+        Preregistration::where('activity_id', $activity->id)->where('readed', false)->update(['readed' => true]);
 
         return view('admin.preregisters.index', compact('activity'))
         ->with('preregisters', $preregisters)
@@ -244,8 +239,28 @@ class ActivityController extends Controller
      */
     public function destroy($id)
     {
-        $activity = activity::findOrFail($id);
+        $activity = Activity::findOrFail($id);
+
+        $vresources = VirtualResource::where('activity_id', $activity->id)->get();
+
+        foreach ($vresources as $vresource) {
+            
+            if ($vresource->image != null) {
+                if(file_exists(public_path().str_replace(env('APP_URL'), '/', $vresource->image))){
+                    unlink(public_path().str_replace(env('APP_URL'), '/', $vresource->image));
+                }
+            }
+
+            if ($vresource->docs != null) {
+                if(file_exists(public_path().str_replace(env('APP_URL'), '/', $vresource->docs))){
+                    unlink(public_path().str_replace(env('APP_URL'), '/', $vresource->docs));
+                }
+            }       
+
+        }
+
         $activity->delete();
+
         return redirect()->route('actividades.index')->with('session_msg', 'Se ha eliminado correctamente la actividad.');
     }
 }

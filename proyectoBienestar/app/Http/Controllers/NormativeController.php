@@ -31,14 +31,17 @@ class NormativeController extends Controller
         $normatives = Normative::orderBy('id', 'DESC')
             ->select([
                 'id',
-                'tittle'
+                'tittle',
+                'document'
             ])
             ->get();
 
-        return response()->json([
-            'normatives'     =>  $normatives,
-            'success'   =>  true,
-        ]);
+        return response()->json($normatives, 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+
+        // return response()->json([
+        //     'normatives'     =>  $normatives,
+        //     'success'   =>  true,
+        // ]);
     }
 
     /**
@@ -117,10 +120,12 @@ class NormativeController extends Controller
             ])
             ->get();
 
-        return response()->json([
-            'normative'     =>  $normative,
-            'success'   =>  true,
-        ]);
+        return response()->json($normative, 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+
+        // return response()->json([
+        //     'normative'     =>  $normative,
+        //     'success'   =>  true,
+        // ]);
     }
 
     /**

@@ -92,7 +92,7 @@
       readURL(this);
     });
 
-    function readURL(input) {
+    function readDocURL(input) {
       if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function(e) {
@@ -103,7 +103,7 @@
     }
 
     $("#docs").change(function() {
-      readURL(this);
+      readDocURL(this);
     });
 </script>
 @endsection()

@@ -11,6 +11,10 @@ class Activity extends Model
         'name', 'description', 'initial_hour', 'final_hour', 'area_id',
     ];
 
+    protected $hidden = [
+        'pivot'
+    ];
+
     public function preregisters()
     {
     	return $this->hasMany('App\Preregistration');

@@ -47,14 +47,19 @@ class PublicationController extends Controller
                 'image',
                 'tittle',
                 'content',
+                'created_at',
                 'area_id'
             ])
-            ->orderby('id', 'DESC')->get();
+            ->take(40)
+            ->orderby('created_at', 'DESC')
+            ->get();
 
-        return response()->json([
-            'publications'     =>  $publications,
-            'success'   =>  true,
-        ]);
+        return response()->json($publications, 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+
+        // return response()->json([
+        //     'publications'     =>  $publications,
+        //     'success'   =>  true,
+        // ]);
     }
 
     /**
@@ -147,7 +152,8 @@ class PublicationController extends Controller
                     'image',
                     'tittle',
                     'content',
-                    'area_id'
+                    'area_id',
+                    'created_at'
                 ])
                 ->with(['area' => function($area){
                     $area->select([
@@ -155,12 +161,14 @@ class PublicationController extends Controller
                         'name'
                     ]);
                 }])
-                ->orderby('id', 'DESC')->get();
+                ->first();
 
-            return response()->json([
-                'publication'     =>  $publication,
-                'success'   =>  true,
-            ]);
+        return response()->json($publication, 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+
+            // return response()->json([
+            //     'publication'     =>  $publication,
+            //     'success'   =>  true,
+            // ]);
         }
     }
 

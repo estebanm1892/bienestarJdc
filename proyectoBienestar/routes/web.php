@@ -52,12 +52,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/usuario/{id}/destroy', 'HomeController@destroy')->name('home.usuario.destroy')->middleware(['auth', 'status']);
 
-	Route::get('yolo', function(){
-	    $user = new App\NewStatus;
-	    $user->name = 'Hola';
-	    $user->save();
-	    return $user;
-	});
+	// Route::get('yolo', function(){
+	//     $user = new App\NewStatus;
+	//     $user->name = 'Hola';
+	//     $user->save();
+	//     return $user;
+	// });
 
 	// Route::get('yolo', function(){
 	//     $user = new App\User;
@@ -70,11 +70,4 @@ Route::get('/usuario/{id}/destroy', 'HomeController@destroy')->name('home.usuari
 	//     $user->user_status_id = 1;
 	//     $user->save();
 	//     return $user;
-	// });
-
-	// Route::get('yolo', function(){
-	// 	$academic = new App\AcademicProgram;
-	// 	$academic->name = 'Ingeniería de Telecomunicaciones';
-	// 	$academic->save();
-	// 	return $academic;
-	// });
+	// });	

@@ -36,7 +36,7 @@
 								<input class="file-path validate" type="text" name="image" placeholder="Selecciona la imágen para el recurso virtual">
 							</div>
 							<div class="col s5">
-								<img id="resource_image_container" value="{{ isset($vresource)?$vresource->vresource:''}}" class="responsive-img">
+								<img id="resource_image_container" value="{{ isset($vresource)?$vresource->image:''}}" class="responsive-img">
 							</div>
 						</div>
 
@@ -51,7 +51,7 @@
 						</div>
 
 						<div class="col s12">
-							<iframe id="document_container" value="{{ isset($normative)?$normative->normative:''}}" style="width: 100%; height: 600px; overflow-y: scroll;"></iframe>
+							<iframe id="document_container" value="{{ isset($vresource)?$vresource->docs:''}}" style="width: 100%; height: 600px; overflow-y: scroll;"></iframe>
 						</div>	
 
 				        <div class="center">
@@ -82,7 +82,7 @@
       readURL(this);
     });
 
-    function readURL(input) {
+    function readDocURL(input) {
       if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function(e) {
@@ -93,7 +93,7 @@
     }
 
     $("#docs").change(function() {
-      readURL(this);
+      readDocURL(this);
     });
 </script>
 @endsection()

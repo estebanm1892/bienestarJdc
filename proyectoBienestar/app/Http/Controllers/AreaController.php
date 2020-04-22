@@ -36,10 +36,12 @@ class AreaController extends Controller
             ])
             ->get();
 
-        return response()->json([
-            'areas'     =>  $areas,
-            'success'   =>  true,
-        ]);
+        return response()->json($areas, 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+
+        // return response()->json([
+        //     'areas'     =>  $areas,
+        //     'success'   =>  true,
+        // ]);
     }
 
     public function show_mobile($id)
@@ -54,15 +56,12 @@ class AreaController extends Controller
         }
 
         $area = $area->where('id', $id)
-            ->with(['publications' => function($publications){
-                $publications->where('new_status_id', 2)
-                ->orderBy('id', 'DESC')
-                ->take(3)
+             ->with(['users' => function($users){
+                $users->where('user_status_id', 1)
                 ->select([
                     'id',
-                    'image',
-                    'tittle',
-                    'content',
+                    'name',
+                    'profile_image',
                     'area_id'
                 ]);
             }])
@@ -74,12 +73,14 @@ class AreaController extends Controller
             'objetive',
             'programs'
         ])
-        ->get();
+        ->first();
 
-        return response()->json([
-            'area'     =>  $area,
-            'success'   =>  true,
-        ]);
+        return response()->json($area, 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+
+        // return response()->json([
+        //     'area'     =>  $area,
+        //     'success'   =>  true,
+        // ]);
 
     }
 
@@ -94,36 +95,32 @@ class AreaController extends Controller
             ], 404);
         }
 
-        $area = $area->where('id', $id)
-            ->with(['users' => function($users){
-                $users->select([
+        $area = $area->where('id', $id)   
+            ->with(['publications' => function($publications){
+                $publications->where('new_status_id', 2)
+                ->orderBy('id', 'DESC')
+                ->take(3)
+                ->select([
                     'id',
-                    'name',
-                    'profile_image',
-                    'area_id'
-                ]);
-            }])
-            ->with(['activities' => function($activities){
-                $activities->select([
-                    'id',
-                    'name',
-                    'area_id'
+                    'image',
+                    'tittle',
+                    'area_id',
+                    'created_at'
                 ]);
             }])            
             ->select([
                 'id',
                 'name',
-                'area_image',
-                'area_presentation',
-                'objetive',
-                'programs'
+                'area_image'
             ])
-            ->get();
+            ->first();
 
-        return response()->json([
-            'area'     =>  $area,
-            'success'   =>  true,
-        ]);
+        return response()->json($area, 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+
+        // return response()->json([
+        //     'area'     =>  $area,
+        //     'success'   =>  true,
+        // ]);
     }
 
     /**
