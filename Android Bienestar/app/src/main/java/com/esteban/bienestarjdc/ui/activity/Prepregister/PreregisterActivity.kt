@@ -51,7 +51,9 @@ class PreregisterActivity : AppCompatActivity() {
                             newPreregister.name = name.text.toString()
                             newPreregister.document = document.text.toString()
                             newPreregister.email = email.text.toString()
+                            /*
                             newPreregister.activity_id = idActivitie
+                             */
                             newPreregister.academic_program = academic_program.text.toString()
                             newPreregister.semester = options.get(position)
 
