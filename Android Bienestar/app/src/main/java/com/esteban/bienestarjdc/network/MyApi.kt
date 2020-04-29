@@ -11,8 +11,8 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import java.util.concurrent.TimeUnit
 
-const val BASE_URL = "http://10.0.2.2:8000/api/"
-const val IMAGE_URL = "http://10.0.2.2:8000"
+const val BASE_URL = "http://192.168.0.20:8000/api/"
+const val IMAGE_URL = "http://192.168.0.20:8000"
 
 interface MyApi {
 
