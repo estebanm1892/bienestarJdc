@@ -11,8 +11,9 @@
 						<th>Documento</th>
 						<th>Nombre</th>
 						<th>Email</th>
-						<th>Semestre</th>
-						<th>Programa acádemico</th>
+						<th>Teléfono</th>
+						<th>Semestre/Rol</th>
+						<th>Programa/Dependencia</th>
 					</tr>
 				</thead>
 				@foreach ($preregisters as $preregister)
@@ -21,6 +22,7 @@
 							<td>{{ $preregister->document }}</td>
 							<td>{{ $preregister->name }}</td>
 							<td>{{ $preregister->email }}</td>
+							<td>{{ $preregister->phone }}</td>
 							<td>{{ $preregister->semester }}</td>
 							<td>{{ $preregister->academic_program }}</td>
 						</tr>

@@ -56,6 +56,7 @@ class PreregistrationController extends Controller
             'name'                  =>  'required|min:3',
             'email'                 =>  'required|email',
             'semester'              =>  'required',
+            'phone'                 =>  'required',
             'academic_program'      =>  'required'
         ];
 
@@ -63,7 +64,8 @@ class PreregistrationController extends Controller
             'document',
             'name',
             'email',
-            'semester',            
+            'semester',      
+            'phone',      
             'academic_program',
         );
 

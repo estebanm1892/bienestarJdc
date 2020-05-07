@@ -8,7 +8,7 @@ class Preregistration extends Model
 {
     protected $table = 'preregistrations';
     protected $fillable = [
-        'document', 'name', 'email', 'semester', 'activity_id', 'academic_program', 'readed',
+        'document', 'name', 'email', 'semester', 'activity_id', 'academic_program', 'phone', 'readed',
     ];
 
     public function activities()

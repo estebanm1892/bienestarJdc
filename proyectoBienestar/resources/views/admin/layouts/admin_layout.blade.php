@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width" />
     <meta name="google" value="notranslate">
     <meta name="_token" content="{{ csrf_token() }}" />
-	{{-- <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('/img/icon.png') }}"> --}}
+	<link rel="icon" type="image/png"  href="{{ asset('/img/iconJdc.png') }}">
 	<link href="{{ asset('css/materialize.min.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" /> 
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>

@@ -11,7 +11,7 @@
   <li><a href="{{ route('actividades.index') }}" {{ $menu_item == 3 ? 'class=active-est' : '' }}><i class="small material-icons">receipt</i>Actividades</a></li>
   <li><a href="{{ route('noticias.index') }}" {{ $menu_item == 4 ? 'class=active-est' : '' }}><i class="small material-icons">library_books</i>Noticias</a></li>
   {{-- <li><a href="{{ route('preinscripciones.index') }}" {{ $menu_item == 5 ? 'class=active-est' : '' }}><i class="small material-icons">forum</i>Preinscripciones</a></li> --}}
-  <li><a href="{{ route('normativas.index') }}" {{ $menu_item == 6 ? 'class=active-est' : '' }}><i class="small material-icons">assignment</i>Normativa</a></li>
+  <li><a href="{{ route('normativas.index') }}" {{ $menu_item == 6 ? 'class=active-est' : '' }}><i class="small material-icons">assignment</i>Normativas</a></li>
 {{--   <li><a href="https://github.com/dogfalo/materialize/" target="_blank"><i class="small material-icons">calendar_today</i>Programación</a></li> --}}
   <li class="divider"></li>
   <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
