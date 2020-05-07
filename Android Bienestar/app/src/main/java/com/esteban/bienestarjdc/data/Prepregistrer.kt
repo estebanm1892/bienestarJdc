@@ -5,6 +5,7 @@ data class Prepregistrer(
     var activity_id: Int= 0,
     var document: String?=null,
     var email: String?=null,
+    var phone: String?=null,
     var id: Int= 0,
     var name: String?=null,
     var semester: String?=null

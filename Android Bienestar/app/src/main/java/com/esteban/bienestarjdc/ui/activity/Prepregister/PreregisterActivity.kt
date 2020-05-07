@@ -27,7 +27,7 @@ class PreregisterActivity : AppCompatActivity() {
 
         option = findViewById(R.id.semester)
 
-        val options = arrayOf("I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X")
+        val options = arrayOf("Docente", "Administrativo", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X")
 
         option.adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,options)
 
@@ -51,13 +51,14 @@ class PreregisterActivity : AppCompatActivity() {
                             newPreregister.name = name.text.toString()
                             newPreregister.document = document.text.toString()
                             newPreregister.email = email.text.toString()
+                            newPreregister.phone = phone.text.toString()
                             /*
                             newPreregister.activity_id = idActivitie
                              */
                             newPreregister.academic_program = academic_program.text.toString()
                             newPreregister.semester = options.get(position)
 
-                            if (validateInfo(name) && validateInfo(document) && validateInfo(email) && validateInfo(academic_program)){
+                            if (validateInfo(name) && validateInfo(document) && validateInfo(email) && validateInfo(academic_program) && validateInfo(phone)){
                                 val apiService = MyApi.RetrofitObject()
                                 val requestCall = apiService.addPreregister(newPreregister, idActivitie)
 
