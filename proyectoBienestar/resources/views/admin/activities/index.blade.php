@@ -31,7 +31,11 @@
 								@if (Auth::user()->user_type_id == 1)
 									<a href="{{ route('actividades.edit', $activity->id) }}"><span class="links-est">Editar</span><i class="material-icons left icon-blue">edit</i></a>
 					            	<p></p>
-					            	<a method="POST" href="{{ route('actividades.destroy', $activity->id) }}" {{csrf_token()}}  onclick="return confirm('¿Deseas eliminar la actividad?')"><span class="links-est">Eliminar</span><i class="material-icons left icon-blue">delete</i></a>
+					            	<form method="POST" action="{{ route('actividades.destroy', $activity->id) }}" onsubmit="return confirm('¿Deseas eliminar la actividad?')">
+					            		{{ csrf_field() }}
+					            		{{ method_field('DELETE') }}
+					            		<button type="submit" class="btn-flat links-est"><span class="links-est">Eliminar</span><i class="material-icons left icon-blue">delete</i></button>
+					            	</form>
 					            	<p></p>
 					            	@if (App\Preregistration::where('activity_id', $activity->id)->where('readed', false)->count())
 					            		<form action="{{ route('actividades.preregisters', $activity->id) }}">
@@ -45,7 +49,11 @@
 					            @elseif(Auth::user()->area_id == $activity->area_id)
 					            	<a href="{{ route('actividades.edit', $activity->id) }}"><span class="links-est">Editar</span><i class="material-icons left icon-blue">edit</i></a>
 					            	<p></p>
-					            	<a method="POST" href="{{ route('actividades.destroy', $activity->id) }}" {{csrf_token()}}  onclick="return confirm('¿Deseas eliminar la actividad?')"><span class="links-est">Eliminar</span><i class="material-icons left icon-blue">delete</i></a>
+					            	<form method="POST" action="{{ route('actividades.destroy', $activity->id) }}" onsubmit="return confirm('¿Deseas eliminar la actividad?')">
+					            		{{ csrf_field() }}
+					            		{{ method_field('DELETE') }}
+					            		<button type="submit" class="btn-flat links-est"><span class="links-est">Eliminar</span><i class="material-icons left icon-blue">delete</i></button>
+					            	</form>
 					            	<p></p>
 					            	@if (App\Preregistration::where('activity_id', $activity->id)->where('readed', false)->count())
 					            		<form action="{{ route('actividades.preregisters', $activity->id) }}">

@@ -15,17 +15,17 @@
 			<div class="col s12 m6 l6">
 				<h5 class="center">Presentación del Area</h5>
 				<div class="divider"></div>
-				<label>{!! $area->area_presentation !!}</label>
+				<label>{!! \App\Support\HtmlSanitizer::clean($area->area_presentation) !!}</label>
 			</div>
 			<div class="col s12 m12 l12">
 				<h5 class="ceneter">Objetivo</h5>
 				<div class="divider"></div>
-				<label>{!! $area->objetive !!}</label>
+				<label>{!! \App\Support\HtmlSanitizer::clean($area->objetive) !!}</label>
 			</div>
 			<div class="col s12 m12 l12">
 				<h5 class="ceneter">Programa</h5>
 				<div class="divider"></div>
-				<label>{!! $area->programs !!}</label>
+				<label>{!! \App\Support\HtmlSanitizer::clean($area->programs) !!}</label>
 			</div>
 			<div class="col s12 m12 l12">
 				<h5 class="ceneter">Equipo de trabajo</h5>

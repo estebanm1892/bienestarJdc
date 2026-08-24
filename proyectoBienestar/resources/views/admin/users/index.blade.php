@@ -56,7 +56,11 @@
 		            	@if (Auth::user()->user_type_id == 1)
 		            		<a href="{{ route('usuarios.edit', $user->id) }}"><span class="links-est">Editar</span><i class="material-icons left icon-blue">edit</i></a>
 			            	<p></p>
-			            	<a method="POST" href="{{ route('home.usuario.destroy', $user->id) }}" {{csrf_token()}} onclick="return confirm('¿Deseas eliminar el usuario?')"><span class="links-est">Eliminar</span><i class="material-icons left icon-blue">delete</i></a>
+			            	<form method="POST" action="{{ route('home.usuario.destroy', $user->id) }}" onsubmit="return confirm('¿Deseas eliminar el usuario?')">
+			            		{{ csrf_field() }}
+			            		{{ method_field('DELETE') }}
+			            		<button type="submit" class="btn-flat links-est"><span class="links-est">Eliminar</span><i class="material-icons left icon-blue">delete</i></button>
+			            	</form>
 			            @elseif(Auth::user()->id == $user->id )
 		            		<a href="{{ route('usuarios.edit', $user->id) }}"><span class="links-est">Editar</span><i class="material-icons left icon-blue">edit</i></a>
 		            	@endif		            	

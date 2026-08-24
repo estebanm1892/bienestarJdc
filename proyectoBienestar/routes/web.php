@@ -28,7 +28,6 @@ Route::resource('usuarios', 'UserController')->middleware(['auth', 'status']);
 Route::resource('areas', 'AreaController')->middleware(['auth', 'status']);
 
 Route::resource('actividades', 'ActivityController')->middleware(['auth', 'status']);
-Route::get('/actividad/{id}/destroy', 'ActivityController@destroy')->name('actividades.destroy')->middleware(['auth', 'status']);
 
 // recursos virtuales
 
@@ -36,28 +35,18 @@ Route::resource('recursos-virtuales', 'VirtualResourceController')->middleware([
 Route::get('recursos-virtuales.create/{id}', 'VirtualResourceController@create')->name('recursos-virtuales.create')->middleware(['auth', 'status']);
 Route::post('recursos-virtuales.store/{id}', 'VirtualResourceController@store')->name('recursos-virtuales.store')->middleware(['auth', 'status']);
 Route::put('recursos-virtuales.update/{id}', 'VirtualResourceController@update')->name('recursos-virtuales.update')->middleware(['auth', 'status']);
-Route::get('recursos-virtuales.destroy/{id}', 'VirtualResourceController@destroy')->name('recursos-virtuales.destroy')->middleware(['auth', 'status']);
 
 Route::resource('noticias', 'PublicationController')->middleware(['auth', 'status']);
-Route::get('/noticia{id}/destroy', 'PublicationController@destroy')->name('noticias.destroy')->middleware(['auth', 'status']);
 
 Route::get('actividades-preinscripciones/{id}', 'ActivityController@show_preregister')->name('actividades.preregisters')->middleware(['auth', 'status']);
 
 Route::resource('normativas', 'NormativeController')->middleware(['auth', 'status']);
-Route::get('/normativas{id}/destroy', 'NormativeController@destroy')->name('normativas.destroy')->middleware(['auth', 'status']);
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/usuario/{id}/destroy', 'HomeController@destroy')->name('home.usuario.destroy')->middleware(['auth', 'status']);
-
-	Route::get('yolo', function(){
-	    $user = new App\NewStatus;
-	    $user->name = 'Hola';
-	    $user->save();
-	    return $user;
-	});
+Route::delete('/usuario/{id}', 'HomeController@destroy')->name('home.usuario.destroy')->middleware(['auth', 'status']);
 
 	// Route::get('yolo', function(){
 	//     $user = new App\User;

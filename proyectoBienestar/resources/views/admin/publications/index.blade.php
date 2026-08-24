@@ -28,7 +28,11 @@
 							<td>
 	    						<a href="{{ route('noticias.edit', $publication->id) }}"><span class="links-est">Editar</span><i class="material-icons left icon-blue">edit</i></a>
 				            	<p></p>
-				            	<a method="POST" enctype="multipart/form-data" href="{{ route('noticias.destroy', $publication->id) }}" {{csrf_token()}} onclick="return confirm('¿Deseas eliminar la noticia?')"><span class="links-est">Eliminar</span><i class="material-icons left icon-blue">delete</i></a>
+				            	<form method="POST" action="{{ route('noticias.destroy', $publication->id) }}" onsubmit="return confirm('¿Deseas eliminar la noticia?')">
+				            		{{ csrf_field() }}
+				            		{{ method_field('DELETE') }}
+				            		<button type="submit" class="btn-flat links-est"><span class="links-est">Eliminar</span><i class="material-icons left icon-blue">delete</i></button>
+				            	</form>
 	    					</td>
 						</tr>
 					</tbody>

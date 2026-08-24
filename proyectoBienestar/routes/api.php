@@ -25,7 +25,7 @@ Route::get('activity/{id}', 'ActivityController@show_mobile');
 Route::get('activity/{id}', 'ActivityController@show_mobile');
 Route::get('vresource/{id}', 'VirtualResourceController@show_mobile');
 
-Route::post('activity/{id}/preregister', 'PreregistrationController@store');
+Route::post('activity/{id}/preregister', 'PreregistrationController@store')->middleware('throttle:10,1');
 
 Route::get('publications', 'PublicationController@index_mobile');
 Route::get('publication/{id}', 'PublicationController@show_mobile');

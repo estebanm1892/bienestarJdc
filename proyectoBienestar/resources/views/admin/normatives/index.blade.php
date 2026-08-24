@@ -18,7 +18,11 @@
 							<td>
 	    						<a href="{{ route('normativas.edit', $normative->id) }}"><span class="links-est">Editar</span><i class="material-icons left icon-blue">edit</i></a>
 				            	<p></p>
-				            	<a method="POST" enctype="multipart/form-data" href="{{ route('normativas.destroy', $normative->id) }}" {{csrf_token()}} onclick="return confirm('¿Deseas eliminar la noticia?')"><span class="links-est">Eliminar</span><i class="material-icons left icon-blue">delete</i></a>
+				            	<form method="POST" action="{{ route('normativas.destroy', $normative->id) }}" onsubmit="return confirm('¿Deseas eliminar la normativa?')">
+				            		{{ csrf_field() }}
+				            		{{ method_field('DELETE') }}
+				            		<button type="submit" class="btn-flat links-est"><span class="links-est">Eliminar</span><i class="material-icons left icon-blue">delete</i></button>
+				            	</form>
 	    					</td>
 						</tr>
 					</tbody>

@@ -84,8 +84,8 @@
 					    			</thead>
 					    			@foreach ($resources as $resource)
 					    				<tr>
-					    					<td>{{ str_limit($resource->tittle, 25) }}</td>
-					    					<td>{{ str_limit($resource->description, 25) }}</td>
+											<td>{{ \Illuminate\Support\Str::limit($resource->tittle, 25) }}</td>
+											<td>{{ \Illuminate\Support\Str::limit($resource->description, 25) }}</td>
 					    					<td>
 					    						@if (is_null($resource->video))
 					    							No
@@ -110,7 +110,11 @@
 					    					<td>
 					    						<a href="{{ route('recursos-virtuales.edit', $resource->id) }}"><span class="links-est">Editar</span><i class="material-icons left icon-blue">edit</i></a>
 								            	<p></p>
-								            	<a method="POST" enctype="multipart/form-data" href="{{ route('recursos-virtuales.destroy', $resource->id) }}" {{csrf_token()}} onclick="return confirm('¿Deseas eliminar el recurso virtual?')"><span class="links-est">Eliminar</span><i class="material-icons left icon-blue">delete</i></a>
+								            	<form method="POST" action="{{ route('recursos-virtuales.destroy', $resource->id) }}" onsubmit="return confirm('¿Deseas eliminar el recurso virtual?')">
+								            		{{ csrf_field() }}
+								            		{{ method_field('DELETE') }}
+								            		<button type="submit" class="btn-flat links-est"><span class="links-est">Eliminar</span><i class="material-icons left icon-blue">delete</i></button>
+								            	</form>
 					    					</td>
 					    				</tr>
 					    			@endforeach

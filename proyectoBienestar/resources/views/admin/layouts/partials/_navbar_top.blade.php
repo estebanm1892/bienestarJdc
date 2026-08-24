@@ -7,7 +7,7 @@
              <!-- Dropdown Trigger -->
              <!-- Dropdown Trigger -->
               {{-- <a class='dropdown-trigger right' href='#' data-target='dropdown1'><i class="material-icons left dropdown-admin-icon-left">person</i>
-                        {!! str_limit(Auth::user()->name, 16) !!}
+                        {{ \Illuminate\Support\Str::limit(Auth::user()->name, 16) }}
                         <i class="material-icons right dropdown-admin-icon-right">arrow_drop_down</i></a> --}}
 
               <!-- Dropdown Structure -->
