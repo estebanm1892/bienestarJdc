@@ -5,14 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.esteban.bienestarjdc.R
-import com.esteban.bienestarjdc.extension.inflate
+import com.esteban.bienestarjdc.databinding.FragmentPublicationsBinding
 import com.esteban.bienestarjdc.network.MyApi
 import com.esteban.bienestarjdc.repository.PublicationRepository
-import kotlinx.android.synthetic.main.fragment_publications.*
 
 /**
  * A simple [Fragment] subclass.
@@ -20,35 +17,43 @@ import kotlinx.android.synthetic.main.fragment_publications.*
 class PublicationsFragment : Fragment() {
 
     private lateinit var viewModel: PublicationViewModel
+    private var _binding: FragmentPublicationsBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return container?.inflate(R.layout.fragment_publications)
+    ): View {
+        _binding = FragmentPublicationsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val apiService = MyApi()
         val publicationRepository = PublicationRepository(apiService)
         val factory = PublicationViewModelFactory(publicationRepository)
-        viewModel = ViewModelProviders.of(this, factory).get(PublicationViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory)[PublicationViewModel::class.java]
 
-        publications_recylerview.setHasFixedSize(true)
-        publications_recylerview.layoutManager = LinearLayoutManager(context)
+        binding.publicationsRecylerview.setHasFixedSize(true)
+        binding.publicationsRecylerview.layoutManager = LinearLayoutManager(context)
 
-        viewModel.publications.observe(viewLifecycleOwner, Observer { publications ->
+        viewModel.publications.observe(viewLifecycleOwner) { publications ->
             if (!publications.isNullOrEmpty()) {
                 context?.let {
                     val adapter = PublicationsRecyclerAdapter(it, publications)
-                    publications_recylerview.adapter = adapter
+                    binding.publicationsRecylerview.adapter = adapter
                 }
             }
-        })
+        }
 
         viewModel.getPublications()
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

@@ -3,43 +3,33 @@ package com.esteban.bienestarjdc.ui.activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.esteban.bienestarjdc.R
 import com.esteban.bienestarjdc.data.AreaActivity
 import com.esteban.bienestarjdc.data.Day
+import com.esteban.bienestarjdc.databinding.ActivitiesListItemBinding
 import com.esteban.bienestarjdc.ui.activity.Prepregister.PreregisterActivity
 import com.esteban.bienestarjdc.ui.vresources.VirtualResourcesActivity
-import kotlinx.android.synthetic.main.activities_list_item.view.*
-import kotlinx.android.synthetic.main.activities_list_item.view.name
 
 class AreaActivitiesRecyclerAdapter(private val context: Context,
-                                    private val areaActivities: List<AreaActivity>) : RecyclerView.Adapter<AreaActivitiesRecyclerAdapter.AreaActivityViewHolder>() {
-    class AreaActivityViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+                                     private val areaActivities: List<AreaActivity>) : RecyclerView.Adapter<AreaActivitiesRecyclerAdapter.AreaActivityViewHolder>() {
+    class AreaActivityViewHolder(private val binding: ActivitiesListItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(areaActivity: AreaActivity?, context: Context){
 
-            val btn_presential : ImageButton
-            val btn_vresource : ImageButton
+            binding.name.text = areaActivity?.name
+            binding.description.text = areaActivity?.description
+            binding.initialHour.text = "Inicia: " + areaActivity?.initial_hour
+            binding.finalHour.text = "Termina: " + areaActivity?.final_hour
+            binding.days.text = areaActivity?.days?.joinToString { day: Day -> day.name }
 
-            itemView.name.text = areaActivity?.name
-            itemView.description.text = areaActivity?.description
-            itemView.initial_hour.text = "Inicia: " + areaActivity?.initial_hour
-            itemView.final_hour.text = "Termina: " + areaActivity?.final_hour
-            itemView.days.text = areaActivity?.days?.joinToString { day: Day -> day.name }
-
-            btn_presential = itemView.findViewById(R.id.activity_presential) as ImageButton
-            btn_presential.setOnClickListener {
+            binding.activityPresential.setOnClickListener {
                 val intent = Intent(context, PreregisterActivity::class.java)
                 intent.putExtra("id", areaActivity?.id)
                 context.startActivity(intent)
             }
 
-            btn_vresource = itemView.findViewById(R.id.activity_vresource) as ImageButton
-            btn_vresource.setOnClickListener {
+            binding.activityVresource.setOnClickListener {
                 val intent = Intent(context, VirtualResourcesActivity::class.java)
                 intent.putExtra("id", areaActivity?.id)
                 context.startActivity(intent)
@@ -53,9 +43,8 @@ class AreaActivitiesRecyclerAdapter(private val context: Context,
         parent: ViewGroup,
         viewType: Int
     ): AreaActivitiesRecyclerAdapter.AreaActivityViewHolder {
-        val v = LayoutInflater.from(parent.context)
-            .inflate(R.layout.activities_list_item, parent, false)
-        return AreaActivityViewHolder(v)
+        val binding = ActivitiesListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return AreaActivityViewHolder(binding)
     }
 
     override fun getItemCount(): Int {

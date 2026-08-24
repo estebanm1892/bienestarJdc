@@ -6,7 +6,7 @@ import com.esteban.bienestarjdc.repository.NormativeRepository
 
 class NormativeModelFactory(private val normativeRepository: NormativeRepository): ViewModelProvider.NewInstanceFactory() {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return NormativeViewModel(
             normativeRepository
         ) as T

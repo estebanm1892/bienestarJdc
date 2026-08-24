@@ -1,6 +1,7 @@
 package com.esteban.bienestarjdc.network
 
 import com.esteban.bienestarjdc.data.*
+import com.esteban.bienestarjdc.BuildConfig
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -11,8 +12,8 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import java.util.concurrent.TimeUnit
 
-const val BASE_URL = "http://192.168.0.20:8000/api/"
-const val IMAGE_URL = "http://192.168.0.20:8000"
+val BASE_URL: String = BuildConfig.API_BASE_URL
+val IMAGE_URL: String = BuildConfig.IMAGE_BASE_URL
 
 interface MyApi {
 

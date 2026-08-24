@@ -4,10 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import com.esteban.bienestarjdc.R
 import com.esteban.bienestarjdc.data.Prepregistrer
+import com.esteban.bienestarjdc.databinding.ActivityPreregisterBinding
 import com.esteban.bienestarjdc.network.MyApi
-import kotlinx.android.synthetic.main.activity_preregister.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,17 +14,19 @@ import retrofit2.Response
 class PreregisterActivity : AppCompatActivity() {
 
     lateinit var option : Spinner
+    private lateinit var binding: ActivityPreregisterBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_preregister)
+        binding = ActivityPreregisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Preinscripción"
 
         val context = this
 
-        option = findViewById(R.id.semester)
+        option = binding.semester
 
         val options = arrayOf("Docente", "Administrativo", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X")
 
@@ -46,19 +47,19 @@ class PreregisterActivity : AppCompatActivity() {
                         position: Int,
                         id: Long
                     ) {
-                        btn_add.setOnClickListener {
+                        binding.btnAdd.setOnClickListener {
                             val newPreregister = Prepregistrer()
-                            newPreregister.name = name.text.toString()
-                            newPreregister.document = document.text.toString()
-                            newPreregister.email = email.text.toString()
-                            newPreregister.phone = phone.text.toString()
+                            newPreregister.name = binding.name.text.toString()
+                            newPreregister.document = binding.document.text.toString()
+                            newPreregister.email = binding.email.text.toString()
+                            newPreregister.phone = binding.phone.text.toString()
                             /*
                             newPreregister.activity_id = idActivitie
                              */
-                            newPreregister.academic_program = academic_program.text.toString()
+                            newPreregister.academic_program = binding.academicProgram.text.toString()
                             newPreregister.semester = options.get(position)
 
-                            if (validateInfo(name) && validateInfo(document) && validateInfo(email) && validateInfo(academic_program) && validateInfo(phone)){
+                            if (validateInfo(binding.name) && validateInfo(binding.document) && validateInfo(binding.email) && validateInfo(binding.academicProgram) && validateInfo(binding.phone)){
                                 val apiService = MyApi.RetrofitObject()
                                 val requestCall = apiService.addPreregister(newPreregister, idActivitie)
 

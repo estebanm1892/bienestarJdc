@@ -3,28 +3,29 @@ package com.esteban.bienestarjdc.ui.publication.details
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.esteban.bienestarjdc.R
+import com.esteban.bienestarjdc.databinding.ActivityPublicationBinding
 import com.esteban.bienestarjdc.network.IMAGE_URL
 import com.esteban.bienestarjdc.network.MyApi
 import com.esteban.bienestarjdc.repository.PublicationRepository
 import com.esteban.bienestarjdc.ui.publication.PublicationViewModel
 import com.esteban.bienestarjdc.ui.publication.PublicationViewModelFactory
-import kotlinx.android.synthetic.main.activity_publication.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class PublicationActivity : AppCompatActivity() {
 
     private lateinit var viewModel: PublicationViewModel
+    private lateinit var binding: ActivityPublicationBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_publication)
+        binding = ActivityPublicationBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Noticias"
@@ -32,9 +33,9 @@ class PublicationActivity : AppCompatActivity() {
         val apiService = MyApi.RetrofitObject()
         val publicationRepository = PublicationRepository(apiService)
         val factory = PublicationViewModelFactory(publicationRepository)
-        viewModel = ViewModelProviders.of(this, factory).get(PublicationViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory)[PublicationViewModel::class.java]
 
-        viewModel.publication.observe(this, Observer { publication ->
+        viewModel.publication.observe(this) { publication ->
             val sdfIn =
                 SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
             val sdfOut =
@@ -42,10 +43,10 @@ class PublicationActivity : AppCompatActivity() {
             val input = publication.created_at
             val date: Date = sdfIn.parse(input)
 
-            tittle.setText(publication.tittle)
-            created_at.setText(sdfOut.format(date))
-            area.setText("Área: " + publication.area?.name)
-            content.setText(Html.fromHtml(publication.content))
+            binding.tittle.setText(publication.tittle)
+            binding.createdAt.setText(sdfOut.format(date))
+            binding.area.setText("Área: " + publication.area?.name)
+            binding.content.setText(Html.fromHtml(publication.content))
 
             val publicationImageURL = IMAGE_URL + publication.image
             Glide.with(this)
@@ -56,9 +57,9 @@ class PublicationActivity : AppCompatActivity() {
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .centerCrop()
-                .into(image)
+                .into(binding.image)
 
-        })
+        }
 
         intent.extras?.let {
             if (it.containsKey(PUB_ITEM_ID)){

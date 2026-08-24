@@ -2,7 +2,6 @@ package com.esteban.bienestarjdc.ui.area.details
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -10,14 +9,14 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.esteban.bienestarjdc.R
 import com.esteban.bienestarjdc.data.User
+import com.esteban.bienestarjdc.databinding.AreaUsersListsItemBinding
 import com.esteban.bienestarjdc.network.IMAGE_URL
-import kotlinx.android.synthetic.main.area_users_lists_item.view.*
 
 class AreaUsersRecyclerAdapter(private val context: Context, private val users: List<User>): RecyclerView.Adapter<AreaUsersRecyclerAdapter.UserViewHolder>() {
-    class UserViewHolder(itemview: View): RecyclerView.ViewHolder(itemview){
+    class UserViewHolder(private val binding: AreaUsersListsItemBinding): RecyclerView.ViewHolder(binding.root){
 
         fun bind(user: User, context: Context) {
-            itemView.name.text = user?.name
+            binding.name.text = user?.name
 
             val userImageURL = user?.profile_image
             Glide.with(context)
@@ -28,7 +27,7 @@ class AreaUsersRecyclerAdapter(private val context: Context, private val users: 
                 .centerCrop()
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(itemView.profile_image)
+                .into(binding.profileImage)
 
         }
 
@@ -38,9 +37,8 @@ class AreaUsersRecyclerAdapter(private val context: Context, private val users: 
         parent: ViewGroup,
         viewType: Int
     ): AreaUsersRecyclerAdapter.UserViewHolder {
-        val v = LayoutInflater.from(parent.context)
-            .inflate(R.layout.area_users_lists_item, parent, false)
-        return  UserViewHolder(v)
+        val binding = AreaUsersListsItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return  UserViewHolder(binding)
     }
 
     override fun getItemCount(): Int {

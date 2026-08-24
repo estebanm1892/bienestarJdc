@@ -3,24 +3,21 @@ package com.esteban.bienestarjdc.ui.vresources
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.esteban.bienestarjdc.R
 import com.esteban.bienestarjdc.data.VirtualResource
+import com.esteban.bienestarjdc.databinding.VirtualResourcesListItemBinding
 import com.esteban.bienestarjdc.ui.vresources.details.VirtualResourceActivity
-import kotlinx.android.synthetic.main.virtual_resources_list_item.view.*
 
 class VirtualResourcesRecyclerAdapter(private val context: Context, private val virtualResources: List<VirtualResource>): RecyclerView.Adapter<VirtualResourcesRecyclerAdapter.VirtualResourceViewHolder>(){
-    class VirtualResourceViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)  {
+    class VirtualResourceViewHolder(private val binding: VirtualResourcesListItemBinding): RecyclerView.ViewHolder(binding.root)  {
 
         fun bind(virtualResource: VirtualResource?, context: Context){
 
-            itemView.tittle.text = virtualResource?.tittle
-            itemView.description.text = virtualResource?.description
+            binding.tittle.text = virtualResource?.tittle
+            binding.description.text = virtualResource?.description
 
-            itemView.setOnClickListener {
+            binding.root.setOnClickListener {
 
                 val intent = Intent(context, VirtualResourceActivity::class.java)
                 intent.putExtra("id", virtualResource?.id)
@@ -41,9 +38,8 @@ class VirtualResourcesRecyclerAdapter(private val context: Context, private val 
         parent: ViewGroup,
         viewType: Int
     ): VirtualResourcesRecyclerAdapter.VirtualResourceViewHolder {
-        val v = LayoutInflater.from(parent.context)
-            .inflate(R.layout.virtual_resources_list_item, parent, false)
-        return VirtualResourceViewHolder(v)
+        val binding = VirtualResourcesListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return VirtualResourceViewHolder(binding)
     }
 
     override fun getItemCount(): Int {

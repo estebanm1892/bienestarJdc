@@ -5,14 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.esteban.bienestarjdc.R
-import com.esteban.bienestarjdc.extension.inflate
+import com.esteban.bienestarjdc.databinding.FragmentNormativesBinding
 import com.esteban.bienestarjdc.network.MyApi
 import com.esteban.bienestarjdc.repository.NormativeRepository
-import kotlinx.android.synthetic.main.fragment_normatives.*
 
 /**
  * A simple [Fragment] subclass.
@@ -20,34 +17,42 @@ import kotlinx.android.synthetic.main.fragment_normatives.*
 class NormativesFragment : Fragment() {
 
     private lateinit var viewModel: NormativeViewModel
+    private var _binding: FragmentNormativesBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return container?.inflate(R.layout.fragment_normatives)
+    ): View {
+        _binding = FragmentNormativesBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val apiService = MyApi()
         val normativeRepository = NormativeRepository(apiService)
         val factory = NormativeModelFactory(normativeRepository)
-        viewModel = ViewModelProviders.of(this, factory).get(NormativeViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory)[NormativeViewModel::class.java]
 
-        normatives_recylerview.setHasFixedSize(true)
-        normatives_recylerview.layoutManager = LinearLayoutManager(context)
+        binding.normativesRecylerview.setHasFixedSize(true)
+        binding.normativesRecylerview.layoutManager = LinearLayoutManager(context)
 
-        viewModel.normatives.observe(viewLifecycleOwner, Observer { normatives ->
+        viewModel.normatives.observe(viewLifecycleOwner) { normatives ->
             if (!normatives.isNullOrEmpty()){
                 context?.let {
                     val adapter = NormativesRecyclerAdapter(it, normatives)
-                    normatives_recylerview.adapter = adapter
+                    binding.normativesRecylerview.adapter = adapter
                 }
             }
-        })
+        }
 
         viewModel.getNormatives()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
